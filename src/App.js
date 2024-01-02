@@ -1,25 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react'
+import ToDo from './components/toDo';
+import ToDoForm from './components/toDoForm';
 
 function App() {
+
+  const [todos, setTodos] = useState([
+    {
+      id:1,
+      text: "criar funcionalidade x no sistema",
+      category: "Trabalho",
+      isCompleted: false,
+    },
+    {
+      id:2,
+      text: "Ir pra academia",
+      category: "Pessoal",
+      isCompleted: false,
+    },
+    {
+      id:3,
+      text: "Estudar React",
+      category: "Estudos",
+      isCompleted: false,
+    }
+
+  ])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <h1>Lista de tarefas</h1>
+      <div className='todoList'> 
+      {
+        todos.map((toDo) => (
+          <ToDo toDo={toDo} key={toDo.id}/>
+        ))
+      }
+      </div>
+      <ToDoForm/>
     </div>
-  );
+  )
 }
 
 export default App;
