@@ -38,10 +38,29 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .toDoForm {
   padding-bottom: 1.5rem;
+}
+
+.toDoList {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #555;
+}
+
+.toDo {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 input, select {
@@ -49,6 +68,15 @@ input, select {
   margin-bottom: 10px;
   border: 1px solid #DDD;
   border-radius: 3px;
+  width: 100%;
 }
 
+
+.complete {
+  background-color: #5cb85c;
+}
+
+.remove {
+  background-color: #D9534F;
+}
 

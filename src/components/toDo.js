@@ -1,7 +1,7 @@
 
 import '../App.css'
 
-function ToDo ({toDo}) {
+function ToDo ({toDo, removeToDo}) {
 
     return(
         <div className='toDo'>
@@ -10,8 +10,8 @@ function ToDo ({toDo}) {
             <p className='category'>{toDo.category}</p>
           </div>
           <div> 
-            <button>Completar</button>
-            <button>X</button>
+            <button className='complete'>Completar</button>
+            <button onClick={() => removeToDo(toDo.id)} className='remove'>X</button>
 
           </div>
       </div>
