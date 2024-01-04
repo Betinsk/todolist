@@ -2,10 +2,11 @@ import './App.css';
 import {useState} from 'react'
 import ToDo from './components/toDo';
 import ToDoForm from './components/toDoForm';
+import Search from './components/search';
 
 function App() {
 
-  const [todos, setTodos] = useState([
+  const [toDos, setToDos] = useState([
     {
       id:1,
       text: "criar funcionalidade x no sistema",
@@ -27,38 +28,54 @@ function App() {
 
   ])
 
+
+
     const addToDo = (text, category) => {
       
-      const newToDos = [...todos, {
+      const newToDos = [...toDos, {
         id: Math.floor(Math.random() * 10000),
         text,
         category,
         isCompleted: false
       }]
 
-      setTodos(newToDos)
+      setToDos(newToDos)
     }
 
     const removeToDo = (id) => {
         // Cria uma cópia do array de toDos 
-      const newToDos = [...todos]
+      const newToDos = [...toDos]
         // Filtra os toDos, removendo aquele cujo id corresponde ao id fornecido como argumento
       const filteredToDos = newToDos.filter((toDo) => 
         toDo.id !== id
       )
 
     // Atualiza o estado `toDos` com a nova lista filtrada
-      setTodos(filteredToDos)
-
+    setToDos(filteredToDos)
     }
+
+    const completeToDo = (id) => {
+      const newToDos = [...toDos] 
+      newToDos.map((toDo) =>
+       toDo.id === id? toDo.isCompleted = !toDo.isCompleted : toDo)
+    
+      setToDos(newToDos)
+    }
+
+    const[search, setSearch] = useState('')
+
 
   return (
     <div className='app'>
       <h1>Lista de tarefas</h1>
+      <Search search={search} setSearch={setSearch}/>
       <div className='todoList'> 
       {
-        todos.map((toDo) => (
-          <ToDo toDo={toDo} removeToDo={removeToDo} key={toDo.id}/>
+        toDos.filter((toDo) =>
+         toDo.text.toLowerCase().includes(search.toLowerCase())
+         )
+        .map((toDo) => (
+          <ToDo toDo={toDo} removeToDo={removeToDo} completeToDo={completeToDo} key={toDo.id}/>
         ))
       }
       </div>
