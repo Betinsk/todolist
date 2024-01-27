@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import ToDo from './components/toDo';
 import ToDoForm from './components/toDoForm';
 import Search from './components/search';
@@ -29,22 +29,44 @@ function App() {
 
   ])
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/categories');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar dados da API');
+        }
+        const jsonData = await response.json();
+        console.log(jsonData)
+        setData(jsonData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+   
+    fetchData();
+  }, []);
+
+
+
+
   const[search, setSearch] = useState('')
   const [filter, setFilter] = useState('All')
   const [sort, setSort] = useState('Asc')
 
-
-    const addToDo = (text, category) => {
+  const addToDo = (text, category) => {
       
-      const newToDos = [...toDos, {
-        id: Math.floor(Math.random() * 10000),
-        text,
-        category,
-        isCompleted: false
-      }]
+    const newToDos = [...toDos, {
+      id: Math.floor(Math.random() * 10000),
+      text,
+      category,
+      isCompleted: false
+    }]
 
-      setToDos(newToDos)
-    }
+    setToDos(newToDos)
+  }
 
     const removeToDo = (id) => {
         // Cria uma cópia do array de toDos 
@@ -82,11 +104,11 @@ function App() {
           ? a.text.localeCompare(b.text) 
           : b.text.localeCompare(a.text))
         .map((toDo) => (
-          <ToDo toDo={toDo} removeToDo={removeToDo} completeToDo={completeToDo} key={toDo.id}/>
+          <ToDo  toDo={toDo} removeToDo={removeToDo} completeToDo={completeToDo} key={toDo.id}/>
         ))
       }
       </div>
-      <ToDoForm addToDo={addToDo}/>
+      <ToDoForm data={data} setData={setData} addToDo={addToDo}/>
     </div>
   )
 }
