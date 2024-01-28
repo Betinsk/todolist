@@ -105,7 +105,7 @@ function App() {
           ? a.text.localeCompare(b.text) 
           : b.text.localeCompare(a.text))
         .map((toDo) => (
-          <ToDo  toDo={toDo} removeToDo={removeToDo} completeToDo={completeToDo} key={toDo.id}/>
+          <ToDo toDo={toDo} removeToDo={removeToDo} completeToDo={completeToDo} key={toDo.id}/>
         ))
       }
       </div>

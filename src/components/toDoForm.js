@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import '../App.css'
+import DeletCategory from './deletCategory'
 
 function ToDoForm({ addToDo, data }) {
 
     const [value, setValue] = useState('')
     const [category, setCategory] = useState('')
-    const [createCategory, setData] = useState('')
+
+    const [categoryId, setSelectedItemId] = useState(null); // Estado para armazenar o ID do item selecionado
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -18,11 +21,9 @@ function ToDoForm({ addToDo, data }) {
         setCategory('')
         console.log('enviou form')
     }
-
-
+    console.log(category)
 
     return (
-
         <div className="toDoForm">
             <h2>Criar tarefa:</h2>
             <form onSubmit={handleSubmit}>
@@ -30,27 +31,30 @@ function ToDoForm({ addToDo, data }) {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-
-                <select  
-                    onChange={(e) => setCategory(e.target.value)} >
+                
+                <select  value={category}
+                    onChange={(e) => {setCategory(e.target.value);
+                     setSelectedItemId(e.target.key); // Defina o ID da categoria selecionada
+                    }}
+                    
+                    >
                     <option value=''>Selecione uma categoria</option>
-
-                    {data.map((item, index) => (
-                        <>
-                            <option key={index}>
+                  
+                    {data.map((item) => (
+                       
+                            <option key={item.id} value={item.id}>
                                 {item.category}
                             </option>
-                        </>
                     ))}
-                </select>
-
-                {/* Exibindo o valor selecionado */}
-                  <p>Você selecionou: {category}</p>
-
+                    
+                    </select>
+                    
                 <button >Criar tarefa</button>
+                <DeletCategory categoryId={category} />
             </form>
+           
+
         </div>
-    
     )
 }
 

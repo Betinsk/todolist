@@ -5,17 +5,20 @@ function CreateCategory() {
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
 
+    //função que pega o value do input
     const handleTitleChange = (e) => {
         setCategory(e.target.value);
     }
 
+    //função que pega o value do input
     const handleDescriptionChange = (e) => {
         setDescription(e.target.value);
     }
 
+    //Função que da o submit no form
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
+        //Tirando esse atributo a página recarregará para atualizar o array de categorias
+       // e.preventDefault();
         const data = {
             category: category,
             description: description
