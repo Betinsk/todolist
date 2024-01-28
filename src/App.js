@@ -4,6 +4,7 @@ import ToDo from './components/toDo';
 import ToDoForm from './components/toDoForm';
 import Search from './components/search';
 import Filter from './components/filter';
+import CreateCategory from './components/createCategory';
 
 function App() {
 
@@ -108,7 +109,13 @@ function App() {
         ))
       }
       </div>
+
+      <CreateCategory />
+
       <ToDoForm data={data} setData={setData} addToDo={addToDo}/>
+      
+    
+
     </div>
   )
 }

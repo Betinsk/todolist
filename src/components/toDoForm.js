@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import '../App.css'
 
-function ToDoForm({ addToDo, data, setData }) {
+function ToDoForm({ addToDo, data }) {
 
     const [value, setValue] = useState('')
     const [category, setCategory] = useState('')
+    const [createCategory, setData] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -13,15 +14,15 @@ function ToDoForm({ addToDo, data, setData }) {
         addToDo(value, category)
         //adicionar todo
         //Limpar campos
-
         setValue('')
         setCategory('')
-
         console.log('enviou form')
-
     }
 
+
+
     return (
+
         <div className="toDoForm">
             <h2>Criar tarefa:</h2>
             <form onSubmit={handleSubmit}>
@@ -30,28 +31,26 @@ function ToDoForm({ addToDo, data, setData }) {
                     onChange={(e) => setValue(e.target.value)}
                 />
 
-                <select 
+                <select  
                     onChange={(e) => setCategory(e.target.value)} >
                     <option value=''>Selecione uma categoria</option>
 
-                    {data.map(item => (
+                    {data.map((item, index) => (
                         <>
-                            <option value={item.category}>{item.category}</option>
+                            <option key={index}>
+                                {item.category}
+                            </option>
                         </>
                     ))}
-
-
                 </select>
 
                 {/* Exibindo o valor selecionado */}
-                  <p>Você selecionou: {value}</p>
+                  <p>Você selecionou: {category}</p>
 
                 <button >Criar tarefa</button>
-
-
-
             </form>
         </div>
+    
     )
 }
 
