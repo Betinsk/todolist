@@ -12,8 +12,8 @@ function ToDoForm({ addToDo, data }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (!value || !category)
-            return
+        if (!value || !category) 
+         return
         addToDo(value, category)
         //adicionar todo
         //Limpar campos
@@ -21,7 +21,16 @@ function ToDoForm({ addToDo, data }) {
         setCategory('')
         console.log('enviou form')
     }
+    console.log(categoryId)
     console.log(category)
+
+
+    const handleCategoryChange = (e) => {
+        const category = e.target.options[e.target.selectedIndex].getAttribute('data-category');
+        const categoryId = e.target.value;
+        setCategory(category);
+        setSelectedItemId(categoryId);
+    };
 
     return (
         <div className="toDoForm">
@@ -32,25 +41,22 @@ function ToDoForm({ addToDo, data }) {
                     onChange={(e) => setValue(e.target.value)}
                 />
                 
-                <select  value={category}
-                    onChange={(e) => {setCategory(e.target.value);
-                     setSelectedItemId(e.target.key); // Defina o ID da categoria selecionada
-                    }}
-                    
-                    >
-                    <option value=''>Selecione uma categoria</option>
+                <div className='divSelect'>
+
+                <select className='selectOp' onChange={handleCategoryChange}>
+                    <option>Selecione uma categoria</option>
                   
                     {data.map((item) => (
                        
-                            <option key={item.id} value={item.id}>
+                            <option key={item.id} value={item.id} data-category={item.category}>
                                 {item.category}
                             </option>
                     ))}
                     
                     </select>
-                    
+                </div>
                 <button >Criar tarefa</button>
-                <DeletCategory categoryId={category} />
+                <DeletCategory categoryId={categoryId} />
             </form>
            
 

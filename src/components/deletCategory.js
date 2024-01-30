@@ -1,4 +1,6 @@
 
+import '../App.css'
+
 function DeletCategory ({categoryId}) {
     console.log(categoryId)
 
@@ -14,7 +16,7 @@ function DeletCategory ({categoryId}) {
                 // Atualize o estado ou faça qualquer ação necessária após a exclusão bem-sucedida
                 console.log('Categoria excluída com sucesso!');
             } else {
-                console.error('Falha ao excluir categoria');
+                console.error('Falha ao excluir categoria, ela não existe ou possui tarefas');
             }
         } catch (error) {
             console.error('Erro ao processar solicitação de exclusão:', error);
