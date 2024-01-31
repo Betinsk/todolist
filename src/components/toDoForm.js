@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import '../App.css'
 import DeletCategory from './deletCategory'
+import EditCategory from './editCategory'
 
 function ToDoForm({ addToDo, data }) {
 
     const [value, setValue] = useState('')
     const [category, setCategory] = useState('')
-
     const [categoryId, setSelectedItemId] = useState(null); // Estado para armazenar o ID do item selecionado
-
+    const [valueEdit, setValueEdit] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -33,7 +33,8 @@ function ToDoForm({ addToDo, data }) {
     };
 
     return (
-        <div className="toDoForm">
+       
+       <div className="toDoForm">
             <h2>Criar tarefa:</h2>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Digite o título"
@@ -41,7 +42,29 @@ function ToDoForm({ addToDo, data }) {
                     onChange={(e) => setValue(e.target.value)}
                 />
                 
-                <div className='divSelect'>
+                <select className='selectOp' onChange={handleCategoryChange}>
+                    <option>Selecione uma categoria</option>
+                  
+                    {data.map((item) => (
+                       
+                            <option key={item.id} value={item.id} data-category={item.category}>
+                                {item.category}
+                            </option>
+                    ))}
+                    
+                    </select>
+                <button >Criar tarefa</button>
+                <DeletCategory categoryId={categoryId} />  
+                    
+                </form>
+        
+                  <h2>Editar Categoria:</h2>
+                
+                <form>
+                <input type="text" placeholder="Edite a categoria"
+                    value={valueEdit}
+                    onChange={(e) => setValueEdit(e.target.value)}
+                />
 
                 <select className='selectOp' onChange={handleCategoryChange}>
                     <option>Selecione uma categoria</option>
@@ -54,11 +77,9 @@ function ToDoForm({ addToDo, data }) {
                     ))}
                     
                     </select>
-                </div>
-                <button >Criar tarefa</button>
-                <DeletCategory categoryId={categoryId} />
-            </form>
-           
+            
+                <EditCategory categoryId={categoryId} valueEdit={valueEdit} />
+                </form>
 
         </div>
     )
